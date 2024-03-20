@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+    .top-navigation-button{
+        @apply h-[5vh] w-full p-1 text-center  border-r border-slate-500 
+    }
+    .menuitem{
+        @apply text-white flex w-[] p-[10px] pl-[20px] cursor-pointer
+    }
+    .submenuitem{
+        @apply text-slate-300  flex p-[10px] pl-[30px]
+    }
+    .subMenuIcon{
+        @apply mt-1 mr-2
+    }
+    .mainMenuItem{
+        @apply border-b-[1px] border-slate-700
+    }
+    .dark{
+        @apply bg-slate-800 text-slate-300
+    }
+    .light{
+        @apply bg-slate-200 text-slate-900
+    }
+
+    /* dark mode text colors */
+    .menuText{
+        @apply bg-slate-300
+    }
+    .submenuText{
+        @apply bg-slate-300
+    }
+
+    /*Light mode text colours */
+
+    .menuTextLight{
+        @apply text-slate-950
+    }
+    .submenuTextLight{
+        @apply text-slate-950
+    }
+    .max-h-200px {
+        @apply max-height: 20px;
+    }
+    
+}
+
+.box-shadow-1{
+    box-shadow: 0 5px 6px 4px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+}
+.box-shadow-2{
+    box-shadow: 0 5px 6px 4px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+}
+
+.my-scrollable-container {
+    max-height: 600px;
+}

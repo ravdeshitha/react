@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Users",
+        "icon": "FaUserEdit",
+        "childrens": [
+            {
+                "title": "User List",
+                "icon": "PiUserListFill",
+                "path": "/admin/main/userList"
+            },
+            {
+                "title": "Admin",
+                "icon": "FaUserCog",
+                "path": "/admin/main/adminDetails"
+            }
+        ]
+    },
+    {
+        "title": "CEO & Derectors",
+        "icon": "FaUserTie",
+        "childrens": [
+            {
+                "title": "List",
+                "icon": "FaUsers",
+                "path": "/admin/main/ownerDetails"
+            },
+            {
+                "title": "Edit Details",
+                "icon":"FaUsersGear",
+                "path": "/admin/main/ownerEdit"
+            }
+        ]
+    },
+    {
+        "type": "directLink",
+        "title": "Events",
+        "icon": "MdEmojiEvents",
+        "path": "/admin/main/eventDetails"
+    },
+    {
+        "type": "directLink",
+        "title": "Contact",
+        "icon": "BiSolidContact",
+        "path": "/admin/main/contact"
+    },
+    {
+        "title": "Gallery",
+        "icon": "RiGalleryFill",
+        "childrens": [
+            {
+                "title": "Main Poster",
+                "icon": "FaPhotoFilm",
+                "path": "/admin/main/mainPoster"
+            },
+            {
+                "title": "Photos",
+                "icon": "MdAddPhotoAlternate",
+                "path": "/admin/main/galleryPhotos"
+            }
+        ]
+    }
+]

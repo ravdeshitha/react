@@ -1,0 +1,20 @@
+[
+    
+   
+    {
+        "title": "Gallery",
+        "icon": "RiGalleryFill",
+        "childrens": [
+            {
+                "title": "Main Poster",
+                "icon": "FaPhotoFilm",
+                "path": "/admin/main/mainPoster"
+            },
+            {
+                "title": "Photos",
+                "icon": "MdAddPhotoAlternate",
+                "path": "/admin/main/photos"
+            }
+        ]
+    }
+]

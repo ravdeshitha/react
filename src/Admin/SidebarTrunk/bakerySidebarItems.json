@@ -1,0 +1,31 @@
+[
+    
+    {
+        "type": "directLink",
+        "title": "Events",
+        "icon": "MdEmojiEvents",
+        "path": "/admin/main/event"
+    },
+    {
+        "type": "directLink",
+        "title": "Contact",
+        "icon": "BiSolidContact",
+        "path": "/admin/main/contact"
+    },
+    {
+        "title": "Gallery",
+        "icon": "RiGalleryFill",
+        "childrens": [
+            {
+                "title": "Main Poster",
+                "icon": "FaPhotoFilm",
+                "path": "/admin/main/mainPoster"
+            },
+            {
+                "title": "Photos",
+                "icon": "MdAddPhotoAlternate",
+                "path": "/admin/main/photos"
+            }
+        ]
+    }
+]
