@@ -1,20 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./ContactStyle.css";
 import AOS from "aos"; /* for animation  aos package*/
 import "aos/dist/aos.css";
+import axios from "axios";
 
 function ContactUs() {
+
+  const [guestMsg, setGuestMsg] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber:"",
+    subject:"",
+    message:"",
+  })
+
+  const onChangeHandler = (e) =>{
+    setGuestMsg({...guestMsg, [e.target.name] : e.target.value});
+  }
   /* for animation part */
   useEffect(() => {
     AOS.init({ duration: "1000" });
   }, []);
 
+  const onSubmitHandler = async(e) =>{
+    e.preventDefault();
+
+    await axios.post(`${import.meta.env.VITE_SERVER}/api/mainHome/contact/guestMessage`, guestMsg, {withCredentials: true})
+    .then(res =>{
+      console.log("success");
+      window.location.reload();
+  })
+  .catch(err =>{
+      console.log(err);
+  })
+  }
+
   return (
     <>
-      <div className="App mt-16">
+      <div className="App mt-0">
         <div data-aos="fade-left" className="Topic">
           <h1>Contact Us</h1>
         </div>
@@ -42,27 +69,26 @@ function ContactUs() {
           </div>
         </div>
         <div className="container">
-          <form
-          // onSubmit={onSubmitHandler}
-          >
+          <form onSubmit={onSubmitHandler} >
             <div className="form-group">
-              <label htmlFor="firstname" className="form-label">
+              <label htmlFor="firstName" className="form-label">
                 First Name *
               </label>
               <input
                 className="form-control"
-                name="firstname"
-                // onChange={onChangeHandler}
+                name="firstName"
+                onChange={onChangeHandler} 
+                value={guestMsg.firstName}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="lastname" className="form-label">
+              <label htmlFor="lastName" className="form-label">
                 Last Name *
               </label>
               <input
                 className="form-control"
-                name="username"
-                // onChange={onChangeHandler}
+                name="lastName"
+                onChange={onChangeHandler}
               />
             </div>
             <div className="form-group">
@@ -72,34 +98,45 @@ function ContactUs() {
               <input
                 className="form-control"
                 name="email"
-                // onChange={onChangeHandler}
+                onChange={onChangeHandler}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="phonenumber" className="form-label">
+              <label htmlFor="phoneNumber" className="form-label">
                 Phone Number
               </label>
               <input
                 className="form-control"
-                name="phonenumber"
-                // onChange={onChangeHandler}
+                name="phoneNumber"
+                onChange={onChangeHandler}
                 // value={formData.phonenumber}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="yourmassage" className="form-label">
+              <label htmlFor="subject" className="form-label">
+                Subject *
+              </label>
+              <input
+                className="form-control"
+                name="subject"
+                onChange={onChangeHandler}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message" className="form-label">
                 Your Massage *
               </label>
               <input
                 className="form-controll"
-                name="yourmassage"
-                // onChange={onChangeHandler}
+                name="message"
+                onChange={onChangeHandler}
               />
             </div>
 
-            <button className="button button1">
+            <button className="button button1" type="submit">
               Send Message
               <div className="icon">
                 <FontAwesomeIcon icon={faPaperPlane} />

@@ -3,10 +3,12 @@ import SignInForm from "./SignPages/SignInForm";
 import SidePhoto from "./SignPages/SidePhoto";
 import { AuthContext } from '../context/AuthContext';
 import {useCookies} from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
 
+  const location = useLocation();
+  
   const {userIdentify, sendOTP, verifyOTP} = useContext(AuthContext);
 
   const [isOTPForm, setIsOTPFrom] =useState(false);
@@ -34,7 +36,7 @@ export default function SignIn() {
       const result = await userIdentify(user, setIsOTPFrom);
       
       if(result === 'User Login Success'){
-        navigate('/');
+        navigate(location?.state?.prevUrl ? location?.state?.prevUrl : '/');
       }
     }
     catch(err){
@@ -55,7 +57,7 @@ export default function SignIn() {
     try{
       const result = await verifyOTP(otp);
       console.log(result);
-      navigate('/');
+      navigate(location?.state?.prevUrl ? location?.state?.prevUrl : '/protect/admin/main');
     }
     catch(err){
       console.log(err);

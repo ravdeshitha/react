@@ -5,6 +5,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import {Link} from 'react-router-dom';
 
 function Footer() {
   return (
@@ -45,22 +46,23 @@ function Footer() {
                   </ul>
                 </div>
 
-                <div className="border-l-4 border-gray-200 h-44 mx-4"></div>
+                <div className="border-l-2 border-gray-200 h-44 mx-4"></div>
 
                 <div className="pb-0 px-7 flex items-center justify-center sm:px-16">
                   <ul className="text-gray-200">
-                    <li className="pb-3.5">Home</li>
-                    <li className="pb-3.5">About</li>
-                    <li className="pb-3.5">Contact</li>
-                    <li className="pb-3.5">Gallery</li>
-                    <li className="pb-3.5">Help</li>
+                    <li className="pb-3.5"><Link to={'/'}>Home</Link></li>
+                    <li className="pb-3.5"><Link to={'/wasna-bakers'}>Wasana Bakers</Link></li>
+                    <li className="pb-3.5"><Link to={'/wasana-gimanhala'}>Wasana Gimanhala</Link></li>
+                    <li className="pb-3.5"><Link to={'/wasna-reception-hall'}>Reception Hall</Link></li>
+                    <li className="pb-3.5"><Link to={'/'}>Clean & Care</Link></li>
+                    <li className="pb-3.5"><Link to={'/'}>Builders & Engineers</Link></li>
                   </ul>
                 </div>
               </div>
 
               {/* end */}
 
-              <div className="hidden sm:block border-l-4 border-gray-200 h-44 mx-4 "></div>
+              <div className="hidden sm:block border-l-2 border-gray-200 h-44 mx-4 "></div>
 
               {/* icons */}
               <div className="hidden sm:block  items-center sm:items-center sm:justify-center sm:pl-8 ">

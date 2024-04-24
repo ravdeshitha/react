@@ -6,42 +6,32 @@
             {
                 "title": "User List",
                 "icon": "PiUserListFill",
-                "path": "/admin/main/userList"
+                "path": "/protect/admin/main/userList"
             },
             {
                 "title": "Admin",
                 "icon": "FaUserCog",
-                "path": "/admin/main/adminDetails"
+                "path": "/protect/admin/main/adminDetails"
             }
         ]
     },
     {
+        "type": "directLink",
         "title": "CEO & Derectors",
         "icon": "FaUserTie",
-        "childrens": [
-            {
-                "title": "List",
-                "icon": "FaUsers",
-                "path": "/admin/main/ownerDetails"
-            },
-            {
-                "title": "Edit Details",
-                "icon":"FaUsersGear",
-                "path": "/admin/main/ownerEdit"
-            }
-        ]
+        "path": "/protect/admin/main/ownerDetails"
     },
     {
         "type": "directLink",
         "title": "Events",
         "icon": "MdEmojiEvents",
-        "path": "/admin/main/eventDetails"
+        "path": "/protect/admin/main/eventDetails"
     },
     {
         "type": "directLink",
         "title": "Contact",
         "icon": "BiSolidContact",
-        "path": "/admin/main/contact"
+        "path": "/protect/admin/main/contact"
     },
     {
         "title": "Gallery",
@@ -50,12 +40,12 @@
             {
                 "title": "Main Poster",
                 "icon": "FaPhotoFilm",
-                "path": "/admin/main/mainPoster"
+                "path": "/protect/admin/main/mainPoster"
             },
             {
                 "title": "Photos",
                 "icon": "MdAddPhotoAlternate",
-                "path": "/admin/main/galleryPhotos"
+                "path": "/protect/admin/main/galleryPhotos"
             }
         ]
     }

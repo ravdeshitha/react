@@ -8,12 +8,12 @@ function Owners({ title, body }) {
   const [ceo, setCeo] = useState([]);
 
   useEffect(() => {
-    axios.get('https://test-repo-2xuo.onrender.com/api/mainHome/owners')
+    axios.get(`${import.meta.env.VITE_SERVER}/api/mainHome/owners`)
       .then(res => {
         const owners = res.data.result;
-        setFounder(owners.filter(item => item.ownerType === 'founder'));
-        setCeo(owners.filter(item => item.ownerType === 'ceo'));
-        setDirectors(owners.filter(item => item.ownerType !== 'founder' && item.ownerType !== 'ceo'));
+        setFounder(owners.filter(item => item.ownerType === 'founder' || item.ownerType === 'Founder'));
+        setCeo(owners.filter(item => item.ownerType === 'ceo' || item.ownerType === 'CEO'));
+        setDirectors(owners.filter(item => item.ownerType !== 'founder' && item.ownerType !== 'Founder' && item.ownerType !== 'ceo' && item.ownerType !== 'CEO'));
       })
       .catch(err => {
         console.log(err);
@@ -21,14 +21,14 @@ function Owners({ title, body }) {
   }, []);
 
   return (
-    <div className='Owners'>
+    <div className='Owners pt-[10vh]'>
       <div className='page-title'>Our Team</div>
 
       <div className='ceoFounder flex gap-10 justify-center'>
         {founder.map((owner, index) => (
           <div key={index} className='card-container'>
             <div className="image-container">
-              <img src={'https://test-repo-2xuo.onrender.com/images/' + owner.ownerImage} alt="" />
+              <img src={import.meta.env.VITE_LOCAL_IMG_PATH + owner.ownerImage} alt="" />
             </div>
             <div className="card-title">{owner.ownerName}</div>
             <div className='card-position'>Founder</div>
@@ -38,7 +38,7 @@ function Owners({ title, body }) {
         {ceo.map((owner, index) => (
           <div key={index} className='card-container'>
             <div className="image-container">
-              <img src={'https://test-repo-2xuo.onrender.com/images/' + owner.ownerImage} alt="" />
+              <img src={import.meta.env.VITE_LOCAL_IMG_PATH + owner.ownerImage} alt="" />
             </div>
             <div className="card-title">{owner.ownerName}</div>
             <div className='card-position'>Founder</div>
@@ -47,15 +47,26 @@ function Owners({ title, body }) {
 
       </div>
 
-      <div className='board-title'>Board Of Directors</div>
+      {/* <div className='board-title'>Board Of Directors</div> */}
 
       <div className='anim-container'>
         <div className='anim'>
-          <div className='directors flex gap-10 justify-center'>
+          <div className='directors'>
             {directors.map((owner, index) => (
               <div key={index} className='card-container'>
                 <div className="image-container">
-                  <img src={'https://test-repo-2xuo.onrender.com/images/' + owner.ownerImage} alt="" />
+                  <img src={import.meta.env.VITE_LOCAL_IMG_PATH + owner.ownerImage} alt="" />
+                </div>
+                <div className="card-title">{owner.ownerName}</div>
+                <div className='card-position'>{owner.ownerType}</div>
+              </div>
+            ))}
+          </div>
+          <div className='directors'>
+            {directors.map((owner, index) => (
+              <div key={index} className='card-container'>
+                <div className="image-container">
+                  <img src={import.meta.env.VITE_LOCAL_IMG_PATH + owner.ownerImage} alt="" />
                 </div>
                 <div className="card-title">{owner.ownerName}</div>
                 <div className='card-position'>{owner.ownerType}</div>

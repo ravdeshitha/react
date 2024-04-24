@@ -36,7 +36,7 @@ function EventAddForm() {
             formData.append('eventIMG', img1);
             formData.append('eventIMG', img2);
             formData.append('eventData', JSON.stringify(newEvent));
-            await axios.post('https://test-repo-2xuo.onrender.com/api/adminBoard/main/event', formData)
+            await axios.post(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/event`, formData, { withCredentials: true })
             .then(res =>{
                 console.log(res.data);
                 window.location.reload();

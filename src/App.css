@@ -1,0 +1,6 @@
+.our-service-box-shadow{
+    box-shadow: 0 0px 8px 2px rgb(0 0 0 / 0.8), 0 2px 8px 7px rgb(0 0 0 / 0.2);
+}
+.our-service-link-box-shadow{
+    box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.385), 0 60px 20px -40px rgba(0, 0, 0, 0.215);
+}

@@ -18,7 +18,7 @@ function AlbumAddForm() {
     event.preventDefault();
 
     try {
-      const res = await axios.post('https://test-repo-2xuo.onrender.com/api/adminBoard/main/album', albumData, {withCredentials: true});
+      const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/album`, albumData, {withCredentials: true});
       console.log(res.data);
       window.location.reload();
     } catch (err) {

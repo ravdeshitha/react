@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 //Admin dasboard navigation bars
 import TopNavigation from './TopNavigation';
@@ -12,14 +12,29 @@ import AdminGimanhala from './AdminMain/AdminGimanhala';
 
 //tailwind custom css files
 import './adminDashboardStyle.css';
+import axios from 'axios';
 
 
 
 function AdminDashboard() {
+    const navigate = useNavigate();
 
     const [sidebarType, setSidebarType] = useState('main');
     const [themeMode, setThemeMode] = useState('dark');
 
+    useEffect(() =>{
+        axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard`, {withCredentials:true})
+        .then(res =>{
+            if(res.data !== 'AuthorizedAdmin'){
+                navigate('/');
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+
+        
+    },[]);
 
   return (
     <>

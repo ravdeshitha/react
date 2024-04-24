@@ -13,19 +13,16 @@ function OnwersDetails() {
     const [formType, setFormType] = useState(true);
     const [updateData, setUpdateData] = useState();
 
-    //hear has one warning of this useState
-    ////////////////////////////////////////////////////////////////
-    
-    const handleAddOwnerbtn = () =>{
+    const handleAddOwnerbtn = () => {
         setFormType(true);
-    }
+    };
 
-    const handleUpdatebtn = (data)=>{
-        if(formType){
+    const handleUpdatebtn = (data) => {
+        if (formType) {
             setFormType(false);
-            setUpdateData(data);
         }
-    }
+        setUpdateData(data);
+    };
 
     const [directors, setDirectors] = useState([]);
     const [founder, setFounder] = useState([]);
@@ -33,11 +30,11 @@ function OnwersDetails() {
 
     //get all owner details
     useEffect(() =>{
-        axios.get('https://test-repo-2xuo.onrender.com/api/adminBoard/main/owners')
+        axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/owners`, { withCredentials: true })
         .then(res=>{
-            setFounder(res.data.result.filter(item => item.ownerType === 'founder'));
-            setCeo(res.data.result.filter(item => item.ownerType === 'ceo'));
-            setDirectors(res.data.result.filter(item => item.ownerType !== 'founder' && item.ownerType !== 'ceo'));
+            setFounder(res.data.result.filter(item => item.ownerType === 'founder' || item.ownerType === 'Founder'));
+            setCeo(res.data.result.filter(item => item.ownerType === 'ceo' || item.ownerType === 'CEO'));
+            setDirectors(res.data.result.filter(item => item.ownerType !== 'Founder' && item.ownerType !== 'CEO'));
         })
         .catch(err =>{
             console.log(err);
@@ -49,9 +46,7 @@ function OnwersDetails() {
         const ownerImage = data.ownerImage;
 
         try {
-            const res = await axios.delete(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/owners/${ownerId}`, {
-                params: { ownerImage }
-            });
+            const res = await axios.delete(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/owners/${ownerId}`, {params: { ownerImage },  withCredentials: true});
             if (res.data.message === 'success') {
                 console.log("Delete success");
                 window.location.reload();
@@ -81,14 +76,14 @@ function OnwersDetails() {
                     <div className='w-[49%] h-20 bg-slate-100 rounded-lg box-shadow-1 flex'>
                     
                         <div className='w-16 h-20 p-2 mr-2'>
-                            <img src={'http://localhost:8080/images/'+founder[0].ownerImage} className='inset-0 w-full h-full object-cover'/>
+                            <img src={import.meta.env.VITE_LOCAL_IMG_PATH +founder[0].ownerImage} className='inset-0 w-full h-full object-cover'/>
                         </div>
                         <div className='w-[77%] pt-1'>
                             <h3 className='text-slate-800 text-[20px] font-bold'>{founder[0].ownerName}</h3>
                             <p className='text-slate-500 font-semibold'>{founder[0].ownerType}</p>
                         </div>
                         <div className='pt-10'>
-                            <Link to='' ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() =>handleUpdatebtn(founder[0])}/></Link>
+                            <button><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() =>handleUpdatebtn(founder[0])}/></button>
                         </div>
 
                     </div>
@@ -100,14 +95,14 @@ function OnwersDetails() {
                 {ceo.length > 0 &&(
                     <div className='w-[49%] h-20 bg-slate-100 rounded-lg box-shadow-1 flex'>
                         <div className='w-16 h-20 p-2 mr-2'>
-                            <img src={'http://localhost:8080/images/'+ceo[0].ownerImage} className='inset-0 w-full h-full object-cover'/>
+                            <img src={import.meta.env.VITE_LOCAL_IMG_PATH +ceo[0].ownerImage} className='inset-0 w-full h-full object-cover'/>
                         </div>
                         <div className='w-[77%] pt-1'>
                             <h3 className='text-slate-800 text-[20px] font-bold'>{ceo[0].ownerName}</h3>
                             <p className='text-slate-500 font-semibold'>{ceo[0].ownerType}</p>
                         </div>
                         <div className='pt-10'>
-                            <Link to='' ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() =>handleUpdatebtn(ceo[0])}/></Link>
+                            <button><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() =>handleUpdatebtn(ceo[0])}/></button>
                         </div>
 
                     </div>
@@ -151,8 +146,8 @@ function OnwersDetails() {
                                     <td>{row.ownerName}</td>
                                     <td>{row.ownerType}</td>
                                     <td className='flex'>
-                                        <Link to='' ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() => handleUpdatebtn(row)}/></Link>
-                                        <Link to='' onClick={() => handleDelete(row)} ><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' /></Link>
+                                        <button ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() => handleUpdatebtn(row)}/></button>
+                                        <button><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() => handleDelete(row)} /></button>
                                         
                                     </td>
                                 </tr>

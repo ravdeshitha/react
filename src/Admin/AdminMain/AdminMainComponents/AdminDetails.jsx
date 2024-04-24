@@ -27,7 +27,7 @@ function AdminDetails() {
   };
 
   const deleteAdmin = (data) => {
-    axios.delete(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/adminUsers/${data.row.adminId}`,{ data: { photo: data.row.photo }})
+    axios.delete(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/adminUsers/${data.row.adminId}`,{ data: { photo: data.row.photo }, withCredentials: true})
     .then(res =>{
       console.log(res);
       window.location.reload();
@@ -42,7 +42,7 @@ function AdminDetails() {
   const [adminUsers, setAdminUsers] =useState([]);
 
   useEffect(() => {
-    axios.get("https://test-repo-2xuo.onrender.com/api/adminBoard/main/adminUsers")
+    axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/adminUsers`, { withCredentials: true })
     .then(res=>{
       setAdminUsers(res.data);
     })
@@ -92,8 +92,8 @@ function AdminDetails() {
                     <td>{row.phoneNumber}</td>
                     <td>{row.email}</td>
                     <td className='pl-5 flex'>
-                    <Link to='' onClick={() => updateFormState({row})}><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></Link>
-                    <Link to='' onClick={() => deleteAdmin({row})}><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' /></Link>
+                    <button onClick={() => updateFormState({row})}><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></button>
+                    <button onClick={() => deleteAdmin({row})}><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' /></button>
                   </td>
                     
                   </tr>

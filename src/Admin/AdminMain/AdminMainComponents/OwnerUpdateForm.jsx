@@ -40,7 +40,7 @@ function OwnerUpdateForm(props) {
             const formData = new FormData();
             formData.append('ownerIMG', ownerImage);
             formData.append('ownerData', JSON.stringify(updateOwner));
-            await axios.put(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/owners/${props.updateData.ownerId}`, formData);
+            await axios.put(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/owners/${props.updateData.ownerId}`, formData, { withCredentials: true });
             window.location.reload(); // Reload the page after successful update
         } catch (err) {
             console.log(err);
@@ -63,10 +63,11 @@ function OwnerUpdateForm(props) {
 
     useEffect(() => {
         if (updateOwner.ownerImage) {
-          const objectUrl = 'https://test-repo-2xuo.onrender.com/images/'+updateOwner.ownerImage;
+          const objectUrl = import.meta.env.VITE_LOCAL_IMG_PATH + updateOwner.ownerImage;
           setPreview(objectUrl);
         }
-      }, [updateOwner.ownerImage]);
+    }, [updateOwner.ownerImage]);
+    
   return (
         //update form
     <div className='' >

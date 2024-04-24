@@ -11,6 +11,7 @@ import OnwersDetails from './AdminMainComponents/OnwersDetails';
 import EventDetails from './AdminMainComponents/EventDetails';
 import GalleryPoser from './AdminMainComponents/GalleryPoster';
 import GalleryPhotos from './AdminMainComponents/GalleryPhotos';
+import ContactMessages from './AdminMainComponents/ContactMessages';
 
 
 function AdminMain() {
@@ -21,6 +22,7 @@ function AdminMain() {
           <Route path='/adminDetails' element={<AdminDetails />} />
           <Route path='/ownerDetails' element={<OnwersDetails />} />
           <Route path='/eventDetails' element={<EventDetails />} />
+          <Route path='/contact' element={<ContactMessages />} />
           <Route path='/mainPoster' element={<GalleryPoser />} />
           <Route path='/galleryPhotos' element={<GalleryPhotos />} />
 

@@ -17,9 +17,27 @@ export const AuthContextProvider = ({children}) =>{
         }, 180000);
     };
 
+    const register = async(input) =>{
+        console.log(input)
+        try{
+            const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/user/register`, input, {
+                withCredentials: true,
+            });
+            
+            if(res.data.message === "success"){
+                return "success";
+            }
+            return "not success";
+            
+        }
+        catch(err){
+            return "login error";// this error come for any api error
+        }
+    }
+
     const login = async(input) =>{
         try{
-            const res = await axios.post("https://test-repo-2xuo.onrender.com/api/user/login", input, {
+            const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/user/login`, input, {
                 withCredentials: true,
             });
             
@@ -43,7 +61,7 @@ export const AuthContextProvider = ({children}) =>{
 
         //inut is data of login and setIsOTPForm for set user form type(login form to OTP send form)
         try{
-            const res = await axios.post("https://test-repo-2xuo.onrender.com/api/user/userIdentify", input);
+            const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/user/userIdentify`, input);
 
 
             if(res.data.userType){//check userType is existing
@@ -72,11 +90,25 @@ export const AuthContextProvider = ({children}) =>{
         }
     }
 
+    const registerVerify = async(input, setIsOTPForm) =>{
+
+        setHoldDtat(input);
+
+        const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/user/registerVerify`, input);
+
+        if(res.data && res.data.message === 'ok'){
+            setIsOTPForm(true);
+        }
+        else{
+            return res.data.message;
+        }
+    }
+
     //send OTP number 
     const sendOTP = async() =>{
-        
+
         try{
-            const res = await axios.get("https://test-repo-2xuo.onrender.com/api/user/sendOTP");
+            const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/user/sendOTP`,{params: { phoneNumber: holdData.phoneNumber }});
             setOTPWithTime(res.data);//save the OTP number 
         }
         catch(err){
@@ -101,13 +133,38 @@ export const AuthContextProvider = ({children}) =>{
         }
     }
 
+    const registerVerifyOTP = async(OTP) =>{
+        if(OTP == OTPnum){//check entered OTP and server generated OTP
+            const res = await register(holdData);//if OTP verified then call login function with holdData
+            if(res === "success"){
+                return "Register Success";
+            }else{
+                console.log(res);//this console.log show the message come from login function
+                return "Registration Unsuccess";
+            }
+        }
+        else{
+            return "OTP is incorrect";
+        }
+    }
+
+    const logout = async() =>{
+        const input = 'jj';
+        const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/user/logout`, input, {
+        withCredentials: true,
+        });
+
+        localStorage.removeItem('user');
+        return res.data;
+    }
+
     //save the user details in localstorage
     useEffect(() =>{
         localStorage.setItem("user", JSON.stringify(currentUser));
     }, [currentUser]);//save the currentuser details in localstorage
 
     return (
-        <AuthContext.Provider value={{currentUser, userIdentify, sendOTP, verifyOTP}} >
+        <AuthContext.Provider value={{currentUser, userIdentify, sendOTP, verifyOTP, registerVerify,registerVerifyOTP,logout}} >
             {children}
         </AuthContext.Provider>
     )

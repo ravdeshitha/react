@@ -18,7 +18,7 @@ export default function Countdown() {
         onEnter={() => setCounterOn(true)}
         onExit={() => setCounterOn(false)}
       >
-        <div className=" grid grid-cols-2 md:flex pl-6 pb-5 sm:w-[100%] md:h-[300px] lg:w-[80%] md:m-auto md:pt-[px] md:mt-[100px] w-[100%] h-auto justify-around items-center my-10 bg-[#2B5D7D]">
+        <div className=" grid grid-cols-2 mt-0 md:flex pl-6 pb-5 sm:w-[100%] md:h-[250px] lg:w-[90%] md:m-auto md:pt-[px] md:mt-[10px] w-[100%] h-auto justify-around items-center my-10 bg-[#2B5D7D]">
           {/*counter one box part start*/}
 
           <div data-aos="fade-right">
@@ -78,8 +78,6 @@ export default function Countdown() {
           </div>
         </div>
       </ScrollTrigger>
-
-      
     </>
   );
 }

@@ -31,7 +31,7 @@ function AdminAddForm() {
     const formData = new FormData();
     formData.append('adminIMG', file);
     formData.append('adminData', JSON.stringify(adminData));
-    await axios.post('https://test-repo-2xuo.onrender.com/api/adminBoard/main/adminUsers',formData)
+    await axios.post(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/adminUsers`,formData, { withCredentials: true })
     .then(res =>{
         if(res.data.message === 'success'){
             console.log('admin add success');

@@ -56,15 +56,15 @@ function SidebarItems({ item }) {
             </div>
         );
     }
-    else if(item.type == "directLink"){
+    else {
         return (
-            <Link to={item.path || "#"} className=''><div className='mainMenuItem menuitem'>{IconComponent && <IconComponent className='subMenuIcon' />}{item.title}</div></Link>
-        )
-    }
-    else{
-        return (
-            <Link to={item.path || "#"} className=''><div className='submenuitem'>{IconComponent && <IconComponent className='subMenuIcon' />}{item.title}</div></Link>
-        )
+            <Link to={item.path || "#"} className=''>
+                <div className={item.type === 'directLink' ? 'mainMenuItem menuitem' : 'submenuitem'}>
+                    {IconComponent && <IconComponent className='subMenuIcon' />}
+                    {item.title}
+                </div>
+            </Link>
+        );
     }
     
 }

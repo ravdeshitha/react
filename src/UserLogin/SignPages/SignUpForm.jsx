@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaUnlockAlt } from "react-icons/fa";
@@ -24,7 +24,7 @@ let activeBtnStyle =
 let unActiveBtnStyle =
   "w-full p-1 mb-4 text-[18px] mt-6 rounded-full border-2 border-red-900  bg-white text-red-900 hover:bg-red-800 hover:text-white border-2 border-red-900";
 
-export default function SignUpForm() {
+export default function SignUpForm({err, setRegister,userSubmit}) {
   const [user, setUser] = useState({
     fullName: "",
     phoneNumber: "",
@@ -36,8 +36,17 @@ export default function SignUpForm() {
 
   const [error, setError] = useState(null);
 
+  useEffect(() =>{
+    setError(err);
+  }, [err])
+
+
   const handleInput = (element) => {
     setUser((prev) => ({
+      ...prev,
+      [element.target.name]: element.target.value,
+    }));
+    setRegister((prev) => ({
       ...prev,
       [element.target.name]: element.target.value,
     }));
@@ -49,18 +58,15 @@ export default function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!passwordMatch) {
+    if (user.password !== user.confirmPassword) {
       setError("Passwords do not match.");
     }
+    else{
+      setError(null);
 
-    setError(null);
+      userSubmit();
+    }
 
-    axios
-      .post("https://test-repo-2xuo.onrender.com/api/user/register", user)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
   };
 
   return (
@@ -68,7 +74,7 @@ export default function SignUpForm() {
       <h1 className={h1Style}>Sign Up</h1>
       <div></div>
       <div>
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
           {/* <<<< ---- Full Name Input field ---- >>>>*/}
           <div className={inputBoxStyle}>
             <input
@@ -76,8 +82,8 @@ export default function SignUpForm() {
               placeholder=""
               className={inputStyle}
               name="fullName"
-              value={user.fullName}
               onChange={handleInput}
+              required
             />
             <label htmlFor="" className={labelStyle}>
               Full Name
@@ -92,8 +98,8 @@ export default function SignUpForm() {
               placeholder=""
               className={inputStyle}
               name="phoneNumber"
-              value={user.phoneNumber}
               onChange={handleInput}
+              required
             />
             <label htmlFor="" className={labelStyle}>
               Phone Number
@@ -108,9 +114,9 @@ export default function SignUpForm() {
               placeholder=""
               className={inputStyle}
               name="password"
-              value={user.password}
               onChange={handleInput}
               onBlur={checkPasswordMatch}
+              required
             />
             <label htmlFor="" className={labelStyle}>
               Password
@@ -125,9 +131,9 @@ export default function SignUpForm() {
               placeholder=""
               className={inputStyle}
               name="confirmPassword"
-              value={user.confirmPassword}
               onChange={handleInput}
               onBlur={checkPasswordMatch}
+              required
             />
             <label htmlFor="" className={labelStyle}>
               Confirm Password
@@ -147,7 +153,6 @@ export default function SignUpForm() {
           <button
             className={activeBtnStyle}
             type="submit"
-            onClick={handleSubmit}
           >
             Sign Up
           </button>

@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { MdLightMode,MdDarkMode,MdWebStories } from "react-icons/md";
+import { TbLogout2 } from "react-icons/tb";
+import { AuthContext } from '../context/AuthContext';
 
 
 function TopNavigation(props) {
     const [darkTheme, setDarkTheme] = useState(true);
     //dark mode light mode text color
     let textColor = 'dark';
+
+    const {logout} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const themeHandle = () =>{
       if(darkTheme){
@@ -22,11 +27,14 @@ function TopNavigation(props) {
       }
     }
 
-    
-
-
     const sidebarTypeHandle = (type) =>{
         props.setSidebarType(type);
+    };
+
+    const handleLogOut = async() =>{
+      const result = await logout();
+      console.log(result);
+      navigate('/');
     }
   return (
     <>
@@ -42,11 +50,11 @@ function TopNavigation(props) {
 
             {/* Company Type button */}
             <div className="navigationButton h-[5vh] flex justify-between ">
-                <Link to={'/admin/main'} className={`top-navigation-button `} onClick={() => sidebarTypeHandle('main')}>Main</Link>
+                <Link to={'/protect/admin/main'} className={`top-navigation-button `} onClick={() => sidebarTypeHandle('main')}>Main</Link>
 
-                <Link to={'/admin/bakers'} className={`top-navigation-button `} onClick={() => sidebarTypeHandle('bakery')}>Bakery</Link>
+                <Link to={'/protect/admin/bakers'} className={`top-navigation-button `} onClick={() => sidebarTypeHandle('bakery')}>Bakery</Link>
 
-                <Link to={'/admin/gimanhala'} className={`top-navigation-button `} onClick={() => sidebarTypeHandle('gimanhala')}>Gimanhala</Link>
+                <Link to={'/protect/admin/gimanhala'} className={`top-navigation-button `} onClick={() => sidebarTypeHandle('gimanhala')}>Gimanhala</Link>
             </div>
 
             <div className='secondLine h-[5vh] bg-slate-50 justify-between  flex'>
@@ -57,6 +65,9 @@ function TopNavigation(props) {
                 <Link to={'/'} className='mr-2'><MdWebStories /></Link>
 
                 <Link><FaUserCircle /></Link>
+
+                <Link onClick={handleLogOut}><TbLogout2 /></Link>
+
               </div>
 
             </div>

@@ -38,7 +38,7 @@ export default function SignInForm({setUser,userSubmit}) {
       <h1 className={h1Style}>Sign In</h1>
       <div></div>
       <div>
-        <form action="">
+        <form action="" onSubmit={userSubmit} autoComplete="off">
           <div className={inputBoxStyle}>
             <input
               type="text"
@@ -46,6 +46,7 @@ export default function SignInForm({setUser,userSubmit}) {
               className={inputStyle}
               name="phoneNumber"
               onChange={handleInput}
+              required
             />
             <label htmlFor="" className={labelStyle}>
               Phone Number
@@ -60,6 +61,7 @@ export default function SignInForm({setUser,userSubmit}) {
               className={inputStyle}
               name="password"
               onChange={handleInput}
+              required
             />
             <label htmlFor="" className={labelStyle}>
               Password
@@ -79,7 +81,6 @@ export default function SignInForm({setUser,userSubmit}) {
           <button
             className={activeBtnStyle}
             type="submit"
-            onClick={userSubmit}
           >
             Sign In
           </button>

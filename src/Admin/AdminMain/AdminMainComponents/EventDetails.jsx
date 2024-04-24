@@ -32,7 +32,7 @@ function EventDetails() {
     const [eventDetails, setEventDetails] =useState([]);
 
     useEffect(() => {
-        axios.get("https://test-repo-2xuo.onrender.com/api/adminBoard/main/event")
+        axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/event`, { withCredentials: true })
         .then(res=>{
             setEventDetails(res.data.result);
         })
@@ -41,7 +41,7 @@ function EventDetails() {
 
     const handleDelete = (key) =>{
         console.log(key);
-        axios.delete(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/event/${key}`)
+        axios.delete(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/event/${key}`, { withCredentials: true })
         .then(res=>{
             console.log(res);
             window.location.reload();
@@ -87,8 +87,8 @@ function EventDetails() {
                                         <td className='pl-2'>{index+1}</td>
                                         <td>{row.eventName}</td>
                                         <td className='flex'> 
-                                            <Link to=''  onClick={() => updateFormState(row)} ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></Link>
-                                            <Link to=''  onClick={() => handleDelete(row.eventId)}><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></Link>
+                                            <button onClick={() => updateFormState(row)} ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></button>
+                                            <button onClick={() => handleDelete(row.eventId)}><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></button>
                                         </td>
                                         
                                     </tr>

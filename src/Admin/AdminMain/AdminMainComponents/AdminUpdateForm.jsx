@@ -42,7 +42,7 @@ function AdminUpdateForm(props) {
       const formData = new FormData();
       formData.append('adminIMG', files);
       formData.append('updateAdminData', JSON.stringify(previousDetails));
-      await axios.put(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/adminUsers/${previousDetails.userId}`,formData)
+      await axios.put(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/adminUsers/${previousDetails.userId}`,formData, { withCredentials: true })
       .then(res =>{
           if(res.data.message === 'success'){
               console.log('admin add success');
@@ -75,7 +75,7 @@ function AdminUpdateForm(props) {
     // Preview of existing image
     useEffect(() => {
       if (previousDetails.photo) {
-        const objectUrl = 'https://test-repo-2xuo.onrender.com/images/'+previousDetails.photo;
+        const objectUrl = import.meta.env.VITE_LOCAL_IMG_PATH + previousDetails.photo;
         setPreviews(objectUrl);
       }
     }, [previousDetails.photo]);

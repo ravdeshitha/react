@@ -55,7 +55,7 @@ function EventUpdateForm(props) {
             imageNumber.forEach((number) => {
                 formData.append('imageNumber', number);
             });
-            await axios.put('https://test-repo-2xuo.onrender.com/api/adminBoard/main/event', formData,{withCredentials: true})
+            await axios.put(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/event`, formData,{withCredentials: true})
             .then(res =>{
                 console.log(res.data);
                 window.location.reload();
@@ -87,7 +87,7 @@ function EventUpdateForm(props) {
             }
 
             if (typeof image === 'string') {
-                updatedPreviews[prev] = 'https://test-repo-2xuo.onrender.com/images/' + image;
+                updatedPreviews[prev] = import.meta.env.VITE_LOCAL_IMG_PATH + image;
             } else {
                 const imageUrl = URL.createObjectURL(image); // Corrected this line
                 updatedPreviews[prev] = imageUrl;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SidebarItems from './SidebarItems';
 //import the sidebar items json files 
 import mainItems from './SidebarTrunk/mainSidebarItems.json';
@@ -11,8 +11,11 @@ import gimanhalaItems from './SidebarTrunk/gimanhalaSidebarItems.json';
 
 
 function SideNavigation(props) {
-    const type = props.sidebarType;
+  const location = useLocation();
+  // const type = props.sidebarType;
 
+  const pathElements = location.pathname.split('/');
+  const type = pathElements[3];
 
   if(type == 'main'){
     return(
@@ -21,7 +24,7 @@ function SideNavigation(props) {
       </div>
     )
   }
-  else if(type == 'bakery'){
+  else if(type == 'bakers'){
     return(
       <div>
         {bakeryItems.map((item, index) => <SidebarItems key={index} item ={item} />)}

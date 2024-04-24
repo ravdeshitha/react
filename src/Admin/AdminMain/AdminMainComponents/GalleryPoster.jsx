@@ -12,7 +12,7 @@ function GalleryPoster() {
   const [posters, setPosters] = useState([]);
 
   useEffect(() => {
-    axios.get('https://test-repo-2xuo.onrender.com/api/adminBoard/main/album')
+    axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/album`, { withCredentials: true })
       .then(res => {
         setAlbums(res.data.result.filter(item => item.albumType === 'Event' || item.albumType === 'event'));
       })
@@ -20,7 +20,7 @@ function GalleryPoster() {
         console.log(err);
       });
 
-    axios.get('https://test-repo-2xuo.onrender.com/api/adminBoard/main/posterAlbum', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/posterAlbum`, { withCredentials: true })
       .then(res => {
         setPosters(res.data.result);
       })
@@ -30,7 +30,7 @@ function GalleryPoster() {
   }, []);
 
   const deletePoster = (imgId, imgURL) =>{
-    axios.delete(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/poster/${imgId}/${imgURL}`,{ withCredentials: true })
+    axios.delete(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/poster/${imgId}/${imgURL}`,{ withCredentials: true })
     .then(res => {
       console.log('success');
       window.location.reload();
@@ -42,7 +42,7 @@ function GalleryPoster() {
   };
 
   const deleteAlbum = (albumId) =>{
-    axios.delete(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/album/${albumId}`,{ withCredentials: true })
+    axios.delete(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/album/${albumId}`,{ withCredentials: true })
     .then(res => {
       console.log('success');
       window.location.reload();
@@ -132,7 +132,7 @@ function GalleryPoster() {
                     return (
                       <div className='flex justify-between mx-2 px-1 py-1 border-b-2 border-slate-400/50' key={index}>
                         <div className='w-36'>
-                          <img src={'http://localhost:8080/images/' + item.imgURL} />
+                          <img src={import.meta.env.VITE_LOCAL_IMG_PATH + item.imgURL} />
                         </div>
                         <MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' onClick={() => deletePoster(item.imgId, item.imgURL)}/>
                       </div>

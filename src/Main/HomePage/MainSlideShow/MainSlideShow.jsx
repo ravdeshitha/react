@@ -6,6 +6,7 @@ import Cover3 from "../OurServices/assets/flat-lay-table-full-delicious-food-com
 import Cover4 from "../OurServices/assets/set-various-bread-stone-surface.jpg";
 import MainSVG from "./assets/main_cover.png";
 import MainSVG1 from "./assets/main_cover2.png";
+import Logoset from "./LogoSet/Logoset";
 
 const coverList = [
   {
@@ -48,11 +49,17 @@ export default function MainSlideShow({
   return (
     <div className="h-[100vh] bg-blue-400">
       <div className="hidden md:block absolute z-30 ">
-        <img src={MainSVG1} alt="" className="h-[100vh] w-screen object-cover" />
+        <img
+          src={MainSVG1}
+          alt=""
+          className="h-[100vh] w-screen object-cover"
+        />
 
-        <div className=" z-40 absolute bottom-[65vh]  w-[38vw] ml-[58vw] text-5xl text-center font-[poppins] font-bold text-red-700">
-          <div>Wasana Bakers Group of Company</div>
-          <div></div>
+        <div className=" z-40 absolute bottom-[60vh]  w-[38vw] ml-[58vw] text-5xl text-center font-[poppins] font-bold text-red-700 ">
+          <div>Wasana Bakers Pvt Ltd</div>
+          <div className=" w-full h-20 m-auto">
+            <Logoset />
+          </div>
         </div>
       </div>
       <div className="flex overflow-clip">

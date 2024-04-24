@@ -5,40 +5,18 @@ import Gallery from "./Main/Gallery";
 import SignIn from "./UserLogin/SignIn";
 import SignUp from "./UserLogin/SignUp";
 import AdminDashboard from "./Admin/AdminDashboard";
+// import GalleryAlbum from "./Main/Gallery/GalleryAlbum";
+// import Slideshow from "./Main/HomePage/OurServices/SlideShow";
 import GalleryAlbum from "./Main/Gallery/GalleryAlbum";
-
 
 //companies
 import BakeryHome from "./Main/Baker/BakeryHome";
 import GimanhalaHome from "./Main/Gimanhala/GimanhalaHome";
 import ReceptionhallHome from "./Main/ReceptionHall/ReceptionhallHome";
-import { useContext , useState, useEffect } from "react";
-import { AuthContext } from "./context/AuthContext";
-import { AdminVerify } from "./UserLogin/AdminVerify";
-
+import ProtectedRoutes from "./Protected/ProtectedRoutes";
 
 function App() {
-  const {currentUser} = useContext(AuthContext);
-  // const [verified, setVerified] = useState(false);
-
-  // useEffect(() => {
-  //   const checkAdmin = async () => {
-  //     const isAdmin = await AdminVerify();
-  //     setVerified(isAdmin);
-  //   };
-
-  //   checkAdmin();
-  // }, []);
-
-  const AdminProtectedRoute = ({ children }) => {
-    
-    if (!currentUser || currentUser.userType !== "admin") {
-      return <Navigate to='/sign-in' replace />;
-    } else {
-      return children;
-    }
-  };
-
+  
 
   return (
     <>
@@ -47,31 +25,20 @@ function App() {
       </div> */}
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Home />} />
           
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/gallery/album" element={<GalleryAlbum />} />
           
-          
-          <Route path="/admin/*" element={
-            <AdminProtectedRoute>
-              <AdminDashboard />
-            </AdminProtectedRoute>
-          } />
+          <Route exact path="/" element={<Home />} />
+          <Route path="/gallery/*" element={<Gallery />} />
 
-          {/* Wasana Bakery route path */}
-          <Route path="/wasna-bakers" element={<BakeryHome />} />
+          <Route path="/protect/*" element={<ProtectedRoutes />} />
 
-          {/* Wasana Gimanhala route path */}
-          <Route path="/wasana-gimanhala" element={<GimanhalaHome />} />
+          <Route path="/wasna-bakers" element={<BakeryHome />} />{/* Wasana Bakery route path */}
 
-          {/* Wasana ReceptionHall route path */}
-          <Route path="/wasna-reception-hall" element={<ReceptionhallHome />} />
+          <Route path="/wasana-gimanhala" element={<GimanhalaHome />} />{/* Wasana Gimanhala route path */}
 
-          
+          <Route path="/wasna-reception-hall" element={<ReceptionhallHome />} />{/* Wasana ReceptionHall route path */}
         </Routes>
       </BrowserRouter>
     </>

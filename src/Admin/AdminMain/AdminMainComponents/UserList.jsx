@@ -14,7 +14,7 @@ function UserList() {
   useEffect(() =>{
     const fetchUserList = async() =>{
       try{
-        const res = await axios.get("https://test-repo-2xuo.onrender.com/api/adminBoard/main/userList");
+        const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/userList`, { withCredentials: true });
         setUserList(res.data);
       }
       catch(err){
@@ -26,7 +26,7 @@ function UserList() {
 
   const handleDelete = async(userId) =>{
     try{
-      const res = await axios.delete(`https://test-repo-2xuo.onrender.com/api/adminBoard/main/userList/${userId}`);
+      const res = await axios.delete(`${import.meta.env.VITE_SERVER}/api/adminBoard/main/userList/${userId}`, { withCredentials: true });
       console.log(res.data);
       window.location.reload();
     }
@@ -73,7 +73,7 @@ function UserList() {
                   <td>{row.userType}</td>
                   <td className='pl-5 flex'>
                     {/* <Link to='' ><CiEdit className= 'w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800'/></Link> */}
-                    <Link to='' onClick={() =>handleDelete(row.userId)} ><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' /></Link>
+                    <button onClick={() =>handleDelete(row.userId)} ><MdDelete className='w-6 h-6 m-1 mx-2 text-gray-800 rounded border-2 border-gray-800' /></button>
                   </td>
                 </tr>
               ))}
