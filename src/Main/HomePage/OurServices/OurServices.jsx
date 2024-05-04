@@ -18,6 +18,8 @@ import WBuilder_logo from "./assets/builders.png";
 
 import ServiceNavBar from "./ServiceNavBar";
 import SlideShow from "./SlideShow";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const serviceList = [
   {
@@ -88,6 +90,20 @@ const serviceList = [
 ];
 
 export default function OurServices() {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(()=>{
+    axios.get(`${import.meta.env.VITE_SERVER}/api/mainHome/services`)
+      .then(res => {
+        setServices(res.data.result);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      });
+  },[])
   return (
     <div className="h-[100vh] pt-10 bg-blue-100 ">
       <div className="h-[5vh]"></div>
@@ -101,7 +117,12 @@ export default function OurServices() {
         </ServiceBody>
       </div> */}
       <div className="h-[70vh]">
-        <SlideShow slides={serviceList} />
+        {loading? (
+          <div>Loading...</div>
+        ):(
+          <SlideShow slides={services} />
+        )}
+        
       </div>
     </div>
   );

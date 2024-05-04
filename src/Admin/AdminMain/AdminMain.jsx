@@ -12,6 +12,7 @@ import EventDetails from './AdminMainComponents/EventDetails';
 import GalleryPoser from './AdminMainComponents/GalleryPoster';
 import GalleryPhotos from './AdminMainComponents/GalleryPhotos';
 import ContactMessages from './AdminMainComponents/ContactMessages';
+import PageContentDetails from './AdminMainComponents/PageContentDetails';
 
 
 function AdminMain() {
@@ -25,6 +26,7 @@ function AdminMain() {
           <Route path='/contact' element={<ContactMessages />} />
           <Route path='/mainPoster' element={<GalleryPoser />} />
           <Route path='/galleryPhotos' element={<GalleryPhotos />} />
+          <Route path='/contents' element={<PageContentDetails />} />
 
         </Routes>         
     </div>

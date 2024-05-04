@@ -7,45 +7,38 @@ import Cover4 from "../OurServices/assets/set-various-bread-stone-surface.jpg";
 import MainSVG from "./assets/main_cover.png";
 import MainSVG1 from "./assets/main_cover2.png";
 import Logoset from "./LogoSet/Logoset";
+import axios from 'axios';
 
-const coverList = [
-  {
-    name: "wasana Bakers",
-    cover: Cover1,
-  },
-  {
-    name: "wasana Gimanhala",
-    cover: Cover3,
-  },
-  {
-    name: "wasana Reception Hall",
-    cover: Cover4,
-  },
-  {
-    name: "wasana Services",
-    cover: Cover1,
-  },
-  {
-    name: "wasana Builders & Engineers",
-    cover: Cover3,
-  },
-];
+
 export default function MainSlideShow({
   autoSlide = false,
   autoSlideInterval = 3000,
 }) {
   const [curr, setCurr] = useState(0);
-
-  const prev = () =>
-    setCurr((curr) => (curr === 0 ? coverList.length - 1 : curr - 1));
-  const next = () =>
-    setCurr((curr) => (curr === coverList.length - 1 ? 0 : curr + 1));
+  const [slides, setSlides] = useState([]);
 
   useEffect(() => {
-    if (!autoSlide) return;
+    axios.get(`${import.meta.env.VITE_SERVER}/api/mainHome/slideImages`)
+      .then(res => {
+        setSlides(res.data.result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  const prev = () =>
+    setCurr(curr => (curr === 0 ? slides.length - 1 : curr - 1));
+
+  const next = () =>
+    setCurr(curr => (curr === slides.length - 1 ? 0 : curr + 1));
+
+  useEffect(() => {
+    if (!autoSlide || slides.length === 0) return;
     const slideInterval = setInterval(next, autoSlideInterval);
     return () => clearInterval(slideInterval);
-  }, []);
+  }, [autoSlide, autoSlideInterval, slides.length]);
+  
   return (
     <div className="h-[100vh] bg-blue-400">
       <div className="hidden md:block absolute z-30 ">
@@ -63,7 +56,7 @@ export default function MainSlideShow({
         </div>
       </div>
       <div className="flex overflow-clip">
-        {coverList.map((slide, index) => (
+        {slides.map((slide, index) => (
           <div
             key={index}
             style={{ transform: `translateX(-${curr * 100}%)` }}
@@ -71,7 +64,7 @@ export default function MainSlideShow({
           >
             <div className="bg-black w-screen h-screen">
               <img
-                src={slide.cover}
+                src={import.meta.env.VITE_LOCAL_IMG_PATH + slide.imageUrl}
                 alt="image "
                 className=" w-[100vw] h-screen object-cover z-0 "
               />

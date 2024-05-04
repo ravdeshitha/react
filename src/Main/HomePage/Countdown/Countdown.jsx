@@ -3,9 +3,24 @@ import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 import AOS from "aos"; /* for animation  aos package*/
 import "aos/dist/aos.css";
+import axios from "axios";
 
 export default function Countdown() {
   const [counterOn, setCounterOn] = useState(false);
+  const [counts, setCounts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_SERVER}/api/mainHome/countdown`)
+      .then(res => {
+        setCounts(res.data.result[0]);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      });
+}, []);
 
   /* for animation part */
   useEffect(() => {
@@ -25,7 +40,7 @@ export default function Countdown() {
             <div className="w-28 h-28 m-5 rounded-2xl   transform transition-transform hover:scale-110 ">
               <h1 className="text-4xl p-5 pb-3  text-center text-white md:text-6xl">
                 {counterOn && (
-                  <CountUp start={0} end={100} duration={2} delay={0} />
+                  <CountUp start={0} end={counts.employees} duration={2} delay={0} />
                 )}
                 +
               </h1>
@@ -40,7 +55,7 @@ export default function Countdown() {
             <div className="w-28 h-28 m-5 rounded-2xl   transform transition-transform hover:scale-110">
               <h1 className="text-4xl p-5 pb-3  text-center text-white md:text-5xl">
                 {counterOn && (
-                  <CountUp start={0} end={5} duration={2} delay={0} />
+                  <CountUp start={0} end={counts.services} duration={2} delay={0} />
                 )}
                 +
               </h1>
@@ -54,7 +69,7 @@ export default function Countdown() {
             <div className="w-28 h-28 m-5 rounded-2xl   transform transition-transform hover:scale-110">
               <h1 className="text-4xl p-5 pb-3  text-center text-white md:text-5xl">
                 {counterOn && (
-                  <CountUp start={0} end={10} duration={2} delay={0} />
+                  <CountUp start={0} end={counts.years} duration={2} delay={0} />
                 )}
                 +
               </h1>
@@ -67,7 +82,7 @@ export default function Countdown() {
             <div className="w-28 h-28 m-5 rounded-2xl   transform transition-transform hover:scale-110">
               <h1 className="text-4xl p-5 pb-3  text-center text-white md:text-5xl">
                 {counterOn && (
-                  <CountUp start={0} end={5} duration={2} delay={0} />
+                  <CountUp start={0} end={counts.projects} duration={2} delay={0} />
                 )}
                 +
               </h1>

@@ -48,5 +48,11 @@
                 "path": "/protect/admin/main/galleryPhotos"
             }
         ]
+    },
+    {
+        "type": "directLink",
+        "title": "Page Contents",
+        "icon": "FaWindowRestore",
+        "path": "/protect/admin/main/contents"
     }
 ]

@@ -9,6 +9,11 @@ import image7 from "./assets/07.jpg";
 import image8 from "./assets/08.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { ImCross } from "react-icons/im";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { CgZoomIn } from "react-icons/cg";
+import { CgZoomOut } from "react-icons/cg";
+import { TbZoomReset } from "react-icons/tb";
 
 const imageArr2 = [
   image1,
@@ -26,7 +31,8 @@ function GalleryAlbum() {
   const [imageArr, setImageArr] = useState([]);
   const { id } = useParams();
   const [col, setCol] = useState("none");
-  const [indexNo, setIndexNo] = useState();
+  const [preview, setPreview] = useState();
+  const [prevOpen, setPrevOpen] = useState(false);
   // console.log(id);
 
   useEffect(() => {
@@ -46,7 +52,15 @@ function GalleryAlbum() {
     setCol(e.target.value);
   };
 
+  const handlePrev =(image) =>{
+    setPrevOpen(true);
+    setPreview(image);
+    console.log(image)
+  }
 
+  const handleCross = () =>{
+    setPrevOpen(!prevOpen);
+  }
   return (
     <div className=" w-full ">
       {/* <div className="mt-20"></div> */}
@@ -98,10 +112,66 @@ function GalleryAlbum() {
                 className="pb-3"
                 src={import.meta.env.VITE_LOCAL_IMG_PATH + image.imgURL}
                 alt={`Image ${index + 1}`}
+                onClick={()=>handlePrev(import.meta.env.VITE_LOCAL_IMG_PATH + image.imgURL)}
               />
             </div>
           ))}
         </div>
+      </div>
+
+      <div 
+        className={`${prevOpen ? 'visible' : 'hidden'} w-full h-[100vh] fixed z-30 bg-slate-500 top-0 pt-24`}
+        style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(55,55,55,0.3))',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)'
+        }}
+      >
+        <div className="w-7 h-7 border-2 border-slate-200 rounded-lg absolute top-[75px] right-3 p-1 cursor-pointer" onClick={handleCross}>
+          <ImCross />
+        </div>
+        
+        <div className="h-[85vh] w-[90%] m-auto flex justify-center">
+          <div className="h-[85vh] box-shadow-2 relative">
+            <TransformWrapper>
+              {({ zoomIn, zoomOut,resetTransform, ...rest }) => (
+                  <>
+                    <div className="absolute top-0 -right-12 flex flex-col gap-3">
+                      <button
+                        className="w-8 h-8 bg-slate-100 rounded-sm shadow-md flex justify-center items-center"
+                        onClick={() => {
+                          zoomIn();
+                        }}
+                      >
+                        <CgZoomIn className="w-6 h-6 text-slate-700"/>
+                      </button>
+                      <button
+                        className="w-8 h-8 bg-slate-100 rounded-sm shadow-md flex justify-center items-center"
+                        onClick={() => {
+                          zoomOut();
+                        }}
+                      >
+                        <CgZoomOut className="w-6 h-6 text-slate-700"/>
+                      </button>
+                      <button
+                        className="w-8 h-8 bg-slate-100 rounded-sm shadow-md flex justify-center items-center"
+                        onClick={() => {
+                          resetTransform();
+                        }}
+                      >
+                        <TbZoomReset className="w-6 h-6 text-slate-700"/>
+                      </button>
+                    </div>
+                    <TransformComponent>
+                      <img src={preview}  className="h-[85vh]"/>
+                    </TransformComponent>
+                  </>
+                )}
+            </TransformWrapper>
+          </div>
+          
+        </div>
+
       </div>
     </div>
   );

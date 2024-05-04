@@ -37,6 +37,9 @@
     .galselection{
         @apply border border-gray-300 rounded-md px-3 pr-8 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500;
     }
+    .writing-vertical {
+        writing-mode: vertical-rl; /* Vertical text from bottom to top */
+    }
 
 
     

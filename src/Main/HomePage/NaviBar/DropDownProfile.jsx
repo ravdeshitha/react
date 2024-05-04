@@ -1,15 +1,26 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
+import {useCookies} from 'react-cookie';
 
 const listStyle =
   "hover:bg-slate-100 hover:pointer w-full hover:text-red-950  text-lg py-1 px-4 rounded-xl";
 export default function DropDownProfile() {
+
+  const { logout, currentUser } = useContext(AuthContext);
+
   // Check if user data exists in localStorage
   const userData = localStorage.getItem("user");
-  const user = userData ? JSON.parse(userData) : null;
+  const cookies = useCookies(['otpSendTime']);
+  let user;
 
-  const { logout } = useContext(AuthContext);
+  if(cookies){
+    user = currentUser;
+  }
+  else{
+    user = null;
+  }
+
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -49,8 +60,17 @@ export default function DropDownProfile() {
                 <li className={listStyle}>Admin Panel</li>
               </Link>
             )}
+
+              <Link to="#">
+                <li className={listStyle}>සිංහල</li>
+              </Link>
+
+              <Link to="#">
+                <li className={listStyle}>தமிழ்</li>
+              </Link>
           </ul>
         </div>
+        
       )}
     </div>
   );
