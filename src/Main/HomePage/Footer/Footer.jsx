@@ -38,6 +38,7 @@ function Footer() {
                     <li className="flex items-center mr-0 mb-5">
                       <i className="w-10 h-10 rounded-full mx-1 inline-block pt-1">
                         <IoLocationSharp />
+
                       </i>
                       <p className="space-x-0">
                         Wasana Bakers Pvt Ltd,<br></br>Retiyala,Horana,Sri Lanka
@@ -51,11 +52,12 @@ function Footer() {
                 <div className="pb-0 px-7 flex items-center justify-center sm:px-16">
                   <ul className="text-gray-200">
                     <li className="pb-3.5"><Link to={'/'}>Home</Link></li>
-                    <li className="pb-3.5"><Link to={'/wasna-bakers'}>Wasana Bakers</Link></li>
+                    <li className="pb-3.5"><Link to={'/wasana-bakers'}>Wasana Bakers</Link></li>
                     <li className="pb-3.5"><Link to={'/wasana-gimanhala'}>Wasana Gimanhala</Link></li>
                     <li className="pb-3.5"><Link to={'/wasna-reception-hall'}>Reception Hall</Link></li>
                     <li className="pb-3.5"><Link to={'/'}>Clean & Care</Link></li>
                     <li className="pb-3.5"><Link to={'/'}>Builders & Engineers</Link></li>
+
                   </ul>
                 </div>
               </div>

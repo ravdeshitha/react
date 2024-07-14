@@ -37,7 +37,9 @@ export default function Home() {
       <MainNav scrollToTarget={scrollToTarget} />
 
       <section id="mainSlideShow">
-        {" "}
+        
+        
+
         <MainSlideShow
           autoSlide={true}
           autoSlideInterval={7000}
@@ -70,7 +72,8 @@ export default function Home() {
         <ContactUs />
       </section>
 
-      {/* Footer  */}
+      
+      
       <Footer />
     </div>
   );
