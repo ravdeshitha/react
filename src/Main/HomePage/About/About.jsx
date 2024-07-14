@@ -17,7 +17,7 @@ function About() {
           <div className="w-full mb-10 px-4 lg:w-1/2 lg:mb-0">
             <div className="relative lg:max-w-md">
               <img
-                src={logo}
+                src={import.meta.env.VITE_LOCAL_IMG_PATH + "eventIMG_1712995637812.jpeg"}
                 alt="aboutimage"
                 className="relative z-10 object-cover   rounded h-48 w-48 sm:h-96 sm:w-96 m-auto "
               />{" "}
